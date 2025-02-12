@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TouristTales - Travel Recommendations</title>
+    <link rel="stylesheet" href="static/index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TouristTales</h1>
+        <p>Get the best travel recommendations for transport and hotels!</p>
+        
+        <form action="/" method="POST">
+            <label for="location">Select a Location:</label>
+            <select id="location" name="location" required>
+                {% for loc in locations %}
+                    <option value="{{ loc }}" {% if loc == selected_location %}selected{% endif %}>{{ loc }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        {% if show_recommendations %}
+        <div class="results">
+            <h2>Recommended Transport Modes</h2>
+            <ul>
+                {% for mode in prediction.transport %}
+                    <li>{{ mode }}</li>
+                {% endfor %}
+            </ul>
+
+            <h2>Recommended Hotels</h2>
+            <ul>
+                {% for hotel in prediction.hotel %}
+                    <li>{{ hotel }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
